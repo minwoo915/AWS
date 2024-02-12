@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.albatross.mapper.HeartMapper">
+
+    <insert id="insert">
+		INSERT INTO ATT_HEART (HID, UUID, TID) 
+		VALUES (SEQ_HEART.NEXTVAL, #{uuid}, #{tid})
+	</insert>
+
+    <delete id="delete">
+        DELETE FROM ATT_HEART WHERE HID = #{hid}
+    </delete>
+
+    <select id="exists" resultType="boolean">
+    	SELECT (
+    		CASE 
+        	WHEN EXISTS (
+            	SELECT *
+            	FROM ATT_HEART
+            	WHERE UUID = #{uuid} AND TID = #{tid}
+        	)
+        	THEN 1 
+        	ELSE 0 
+    	END
+		) AS success
+		FROM DUAL
+	</select>
+
+    <select id="selectHid" resultType="int">
+        SELECT HID 
+        FROM ATT_HEART 
+        WHERE UUID = #{uuid} AND TID = #{tid}
+    </select>
+
+	<select id="selectTotal" resultType="int"> 
+		SELECT COUNT(*) FROM ATT_HEART WHERE TID = #{tid} 
+	</select>
+	
+</mapper>

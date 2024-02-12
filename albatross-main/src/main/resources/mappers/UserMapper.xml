@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.albatross.mapper.UserMapper">
+	
+	<select id="read" resultType="userVO">
+		SELECT * 
+		FROM ATT_USER 
+		WHERE MAIL = #{mail}
+	</select>
+	
+	<insert id ="insert">
+		INSERT INTO ATT_USER(UUID, MAIL, PASSWORD, NICKNAME, INTRO, AUTHORITY, PROFILE_LINK)
+		VALUES(SEQ_TWEET.NEXTVAL, #{mail}, #{password}, #{nickname},
+		<if test="intro != null">#{intro}</if>
+        <if test="intro == null">'Hello world!!!'</if>, 
+		<if test="authority != null">#{authority}</if>
+        <if test="authority == null">'ROLE_USER'</if>,
+		<if test="profile_link != null">#{profile_link}</if>
+        <if test="profile_link == null">NULL</if>
+        )
+	</insert>
+	
+	<select id ="select" resultType="userVO">
+		SELECT * 
+		FROM ATT_USER
+		WHERE UUID = #{uuid}
+	</select>
+
+	<delete id ="delete">
+		DELETE FROM ATT_USER WHERE UUID = #{uuid}
+	</delete>
+	
+	<update id="update">
+		UPDATE ATT_USER
+		SET PASSWORD = #{password}, 
+		NICKNAME = #{nickname}, 
+		INTRO= 
+		<if test="intro != null">#{intro}</if>
+        <if test="intro == null">'Hello world'</if>,
+        PROFILE_LINK = 
+		<if test="profile_link != null">#{profile_link}</if>
+        <if test="profile_link == null">NULL</if>, 
+        ENABLED = #{enabled}
+		WHERE UUID =#{uuid}
+	</update>
+</mapper>

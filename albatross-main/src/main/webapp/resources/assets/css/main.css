@@ -1,0 +1,432 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  --twitter-color: #e91e63;
+  --twitter-background: #e6ecf0;
+}
+
+.sidebarOption {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+}
+
+.sidebarOption .material-icons,
+.fa-twitter {
+  padding: 20px;
+}
+
+.sidebarOption h2 {
+  font-weight: 800;
+  font-size: 20px;
+  margin-right: 20px;
+}
+
+.sidebarOption:hover {
+  background-color: var(--twitter-background);
+  border-radius: 30px;
+  color: var(--twitter-color);
+  transition: color 100ms ease-out;
+}
+
+.sidebarOption.active {
+  color: var(--twitter-color);
+}
+
+.sidebar__tweet {
+  width: 100%;
+  background-color: var(--twitter-color);
+  border: none;
+  color: white;
+  font-weight: 900;
+  border-radius: 30px;
+  height: 50px;
+  margin-top: 20px;
+}
+
+body {
+  display: flex;
+  height: 100vh;
+  max-width: 1300px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 10px;
+}
+
+.sidebar {
+  border-right: 1px solid var(--twitter-background);
+  flex: 0.2;
+
+  min-width: 250px;
+  margin-top: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.fa-twitter {
+  color: var(--twitter-color);
+  font-size: 30px;
+}
+
+.sidebarUserImage img{
+  border-radius: 50%;
+  height: 60px; 
+  width: 60px; /* 너비를 높이와 동일하게 설정 */
+  object-fit: cover; /* 이미지가 요소에 맞춰 잘리도록 설정 */
+}
+
+.sidebarUserInfo{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+
+/* -----------------------------------------------------------------------------sidebar Bottom -----------------------------------------*/
+
+.sidebarBottom{
+  position: absolute;
+  bottom: 0;
+  
+}
+.sidebarOption2{
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+.sidebarOption2 h2 {
+  font-weight: 800;
+  font-size: 20px;
+  margin-right: 20px;
+}
+.sidebarOption2 span:hover {
+  background-color: var(--twitter-background);
+  border-radius: 30px;
+  color: var(--twitter-color);
+  transition: color 100ms ease-out;
+}
+
+.sidebarOption2 h2 {
+  font-weight: 800;
+  font-size: 20px;
+  margin-right: 20px;
+}
+
+/* -----------------------------------------------------------------------------feed -----------------------------------------*/
+.feed {
+  flex: 0.5;
+  border-right: 1px solid var(--twitter-background);
+  min-width: fit-content;
+  overflow-y: scroll;
+}
+
+.feed__header {
+  position: sticky;
+  top: 0;
+  background-color: white;
+  z-index: 100;
+  border: 1px solid var(--twitter-background);
+  padding: 15px 20px;
+}
+
+.feed__header h2 {
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.feed::-webkit-scrollbar {
+  display: none;
+}
+
+.feed {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* tweet box */
+.tweetbox__input img {
+  border-radius: 50%;
+  height: 50px;
+  width: 50px; /* 너비를 높이와 동일하게 설정 */
+  object-fit: cover; /* 이미지가 요소에 맞춰 잘리도록 설정 */
+}
+
+.tweetBox {
+  padding-bottom: 10px;
+  border-bottom: 8px solid var(--twitter-background);
+  padding-right: 10px;
+}
+
+.tweetBox form {
+  display: flex;
+  flex-direction: column;
+}
+
+.tweetbox__input {
+  display: flex;
+  padding: 20px;
+  padding-bottom: 0;
+}
+
+#textAreaDiv {
+  padding-left: 20px;
+  flex: 1;
+}
+
+.button-group {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px; /* 버튼 사이의 간격 */
+  margin-top: 0px;
+}
+
+.tweetbox__input textarea {
+  width: 100%;
+  box-sizing: border-box;
+  flex: 1;
+  font-family: Arial;
+  font-size: 20px;
+  border: none;
+  outline: none;
+  resize: none;
+}
+
+.tweetBox__imageButton {
+  background-color: var(--twitter-color);
+  border: none;
+  color: white;
+  font-weight: 900;
+  margin-left: 10px;
+  border-radius: 30px;
+  width: 80px;
+  height: 40px;
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tweetBox__tweetButton {
+  background-color: var(--twitter-color);
+  border: none;
+  color: white;
+  font-weight: 900;
+  border-radius: 30px;
+  width: 80px;
+  height: 40px;
+  margin-top: 20px;
+  margin-left: auto;
+}
+
+
+/* post */
+.post__avatar img {
+  border-radius: 50%;
+  height: 50px;
+  width: 50px; /* 너비를 높이와 동일하게 설정 */
+  object-fit: cover; /* 이미지가 요소에 맞춰 잘리도록 설정 */
+}
+
+.post {
+  display: flex;
+  align-items: flex-start;
+  border-bottom: 1px solid var(--twitter-background);
+  padding-bottom: 10px;
+}
+
+.postTarget__body img {
+  width: 450px;
+  object-fit: contain;
+  border-radius: 20px;
+}
+
+.post__body img {
+  width: 450px;
+  object-fit: contain;
+  border-radius: 20px;
+}
+
+.post__footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.post__badge {
+  font-size: 14px !important;
+  color: var(--twitter-color);
+  margin-right: 5px;
+  margin-left: 3px;
+}
+
+.post__headerSpecial {
+  font-weight: 600;
+  font-size: 12px;
+  color: gray;
+}
+
+.post__headerText h3 {
+  font-size: 15px;
+  margin-bottom: 5px;
+}
+
+.post__headerDescription {
+  margin-bottom: 10px;
+  font-size: 15px;
+}
+
+.postTarget__body {
+  flex: 1;
+  padding: 10px;
+}
+
+.post__body {
+  flex: 1;
+  padding: 10px;
+}
+
+.post__avatar {
+  padding: 20px;
+}
+
+.material-icons.not-liked {
+  color: black;
+}
+
+.material-icons.liked {
+  color: #e91e63;
+}
+
+/* widgets */
+.widgets {
+  flex: 0.3;
+}
+
+.widgets__input {
+  display: flex;
+  align-items: center;
+  background-color: var(--twitter-background);
+  padding: 10px;
+  border-radius: 20px;
+  margin-top: 10px;
+  margin-left: 20px;
+}
+
+.widgets__input input {
+  border: none;
+  background-color: var(--twitter-background);
+}
+
+.widgets__searchIcon {
+  color: gray;
+}
+
+.widgets__widgetContainer {
+  margin-top: 15px;
+  margin-left: 20px;
+  padding: 20px;
+  background-color: #f5f8fa;
+  border-radius: 20px;
+}
+
+.widgets__widgetContainer h2 {
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.material-icons:hover {
+  background-color: var(--twitter-background);
+  border-radius: 30px;
+  color: var(--twitter-color);
+  transition: color 100ms ease-out;
+}
+
+
+
+/* 유저 상세 페이지 관련 */
+
+.profile {
+  position: relative;
+  width: 100%;
+  height: 300px;
+}
+
+.background-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 80%;
+  z-index: 1;
+  
+}
+
+.background-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profile-image {
+  position: absolute;
+  bottom: -10px; /* 프로필 이미지의 크기를 늘리면, 위치도 조금 더 아래로 내려야 합니다 */
+  left: 15%; /* 프로필 이미지를 왼쪽으로 이동합니다 */
+  transform: translateX(-50%);
+  width: 120px; /* 프로필 이미지의 크기를 늘립니다 */
+  height: 120px; /* 프로필 이미지의 크기를 늘립니다 */
+  border: 4px solid white; /* 흰색 테두리를 추가합니다 */
+  border-radius: 50%;
+  object-fit: cover;
+  z-index: 2;
+}
+
+.user-info {
+  margin-top: 20px;
+  padding-left: 3%;
+  padding-bottom: 4%;
+  border-bottom: 4px solid var(--twitter-background);
+}
+
+.user-nickname {
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.user-tag {
+  color: grey;
+  margin-bottom: 10px;
+}
+
+.user-bio {
+  margin-bottom: 10px;
+}
+
+.user-join-date {
+  color: grey;
+  font-size: 14px;
+}
+
+.join-info {
+  display: flex;
+  align-items: center;
+}
+
+.widgets__profileIcon {
+  color: grey;
+  font-size: 50px;
+  font-weight: bold;
+  margin-left: 10px;
+}
+
+.widgets__calendarIcon {
+  color: grey;
+  margin-right: 5px;
+}
+

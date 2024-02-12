@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/security 
+		http://www.springframework.org/schema/security/spring-security.xsd 
+		http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<bean id="customAccessDenied" class="com.example.albatross.security.CustomAccessDeniedHandler"></bean>
+<bean id="customLoginSuccess" class="com.example.albatross.security.CustomLoginSuccessHandler"></bean>
+<bean id="customUserDetailsService" class="com.example.albatross.security.CustomUserDetailsService"></bean>
+
+<!--<bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>-->
+<bean id="noop" class="org.springframework.security.crypto.password.NoOpPasswordEncoder" factory-method="getInstance"/>
+
+
+<security:http auto-config="true" use-expressions="true">
+	
+	<security:intercept-url pattern="/Albatross/register" access="permitAll"/>
+	<security:intercept-url pattern="/Albatross/main" access="hasRole('ROLE_USER')"/>
+	<security:intercept-url pattern="/Albatross/tweetDetail" access="hasRole('ROLE_USER')"/>
+	<security:intercept-url pattern="/Albatross/userDetail" access="hasRole('ROLE_USER')"/>
+	<security:intercept-url pattern="/Albatross/edit" access="hasRole('ROLE_USER')"/>
+	<security:intercept-url pattern="/Albatross/search" access="hasRole('ROLE_USER')"/>
+	<security:intercept-url pattern="/Albatross/follow" access="hasRole('ROLE_USER')"/>
+	<security:intercept-url pattern="/Albatross/admin" access="hasRole('ROLE_ADMIN')"/> 
+	<security:intercept-url pattern="/Albatross/adminRead" access="hasRole('ROLE_ADMIN')"/> 
+	<security:intercept-url pattern="/Albatross/delete" access="hasRole('ROLE_ADMIN')"/> 
+	
+	 
+	<security:form-login login-page="/Albatross/Login" authentication-success-handler-ref="customLoginSuccess"/>
+	<security:logout logout-url="/Albatross/Logout" invalidate-session="true"/>
+	
+	<security:access-denied-handler ref="customAccessDenied"/>
+	
+	<security:csrf disabled="true"/>
+ 	
+ 	
+</security:http>
+	
+	<security:authentication-manager>
+		
+		<security:authentication-provider user-service-ref="customUserDetailsService">
+			
+			<security:password-encoder ref="noop"/>
+
+		</security:authentication-provider>
+	
+	</security:authentication-manager>
+</beans>

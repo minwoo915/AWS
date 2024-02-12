@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.albatross.mapper.FollowMapper">
+	
+	<select id ="selectList" resultType="followVO">
+	SELECT FID, FROM_UID, TO_UID, FOLLOWDATE
+	FROM ATT_FOLLOW
+	WHERE FROM_UID = #{from_uid}
+	ORDER BY FID DESC
+	
+	</select>
+	
+		
+	<insert id ="insert">
+		INSERT INTO ATT_FOLLOW(FID, FROM_UID, TO_UID)
+		VALUES(SEQ_FOLLOW.NEXTVAL, #{from_uid}, #{to_uid})
+	</insert>
+	
+	<delete id ="delete">
+		DELETE FROM ATT_FOLLOW WHERE FID = #{fid}
+	</delete>
+	
+	<select id="exists" resultType="boolean">
+		SELECT (
+    CASE 
+        WHEN EXISTS (
+            SELECT *
+            FROM ATT_FOLLOW
+            WHERE FROM_UID = #{from_uid} AND TO_UID = #{to_uid}
+        )
+        THEN 1 
+        ELSE 0 
+    END
+) AS success
+FROM DUAL
+	</select>
+	
+	<select id="selectFid" resultType="int">
+	SELECT FID
+	FROM ATT_FOLLOW
+	WHERE FROM_UID = #{from_uid} AND TO_UID = #{to_uid}
+	</select>
+
+</mapper>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.albatross.mapper.TweetMapper">
+	<sql id="search">
+    <if test="str != null">
+        <trim	prefixOverrides="AND">
+            <foreach item="str" collection="types" close="AND">
+                <trim prefix="AND">
+                    <choose>
+                        <when test="str == 'T'.toString()">
+                            (T_TYPE = #{t_type})
+                        </when>
+                        <when test="str == 'U'.toString()">
+                            (UUID = #{uuid})
+                        </when>
+                        <when test="str == 'C'.toString()">
+                            (CONTENT LIKE '%' || #{content} || '%')
+                        </when>
+                        <when test="str == 'R'.toString()">
+                            (REF_TID = #{ref_tid})
+                        </when>
+                    </choose>
+                </trim>
+            </foreach>
+        </trim>
+    </if>
+</sql>
+
+	
+	<insert id ="insert">
+		INSERT INTO ATT_TWEET(TID, UUID, T_TYPE, REF_TID, CONTENT, IMAGE_LINK)
+		VALUES(SEQ_TWEET.NEXTVAL, #{uuid},
+		<if test="t_type != null">#{t_type}</if>
+        <if test="t_type == null">DEFAULT</if>, 
+		<if test="ref_tid != null">#{ref_tid}</if>
+        <if test="ref_tid == null">NULL</if>,
+		#{content}, 
+		<if test="image_link != null">#{image_link}</if>
+        <if test="image_link == null">NULL</if>
+        )
+	</insert>
+	
+	<select id ="select" resultType="TweetDTO">
+		SELECT TID, a.UUID, T_TYPE, REF_TID, CONTENT, IMAGE_LINK, REGDATE, UPDATEDATE, MAIL, NICKNAME, PROFILE_LINK 
+		FROM ATT_TWEET a LEFT OUTER JOIN ATT_USER b
+		ON a.uuid = b.uuid
+		WHERE TID = #{tid}
+	</select>
+
+	<delete id ="delete">
+		DELETE FROM ATT_TWEET WHERE TID = #{tid}
+	</delete>
+	
+	<update id="update">
+		UPDATE ATT_TWEET
+		SET CONTENT = #{content}, IMAGE_LINK = 
+		<if test="image_link != null">#{image_link}</if>
+        <if test="image_link == null">NULL</if>, 
+        UPDATEDATE = SYSDATE
+		WHERE TID =#{tid}
+	</update>
+	
+	<select id="selectList" resultType="TweetDTO">
+		SELECT TID, a.UUID, T_TYPE, REF_TID, CONTENT, IMAGE_LINK, REGDATE, UPDATEDATE, MAIL, NICKNAME, PROFILE_LINK
+		FROM
+		(
+			SELECT /*+ INDEX_DESC(ATT_TWEET, SYS_C0011116)*/
+			ROWNUM RN, TID, UUID, T_TYPE, REF_TID, CONTENT, IMAGE_LINK, REGDATE, UPDATEDATE
+			FROM ATT_TWEET
+			WHERE 
+			<include refid ="search"/>
+			<![CDATA[
+				ROWNUM <= #{pageNum} * #{amount}
+			]]>
+		)a LEFT OUTER JOIN ATT_USER b
+		ON a.uuid = b.uuid
+		<![CDATA[
+		WHERE RN > (#{pageNum}-1) * #{amount}
+		]]>
+		ORDER BY TID DESC
+	</select>
+	
+</mapper>
